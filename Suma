@@ -1,0 +1,43 @@
+#Suma n kolejnych poteg do r
+def Suma(n,r):
+    x=0
+    for i in range(n+1):
+        x+=pow(i,r)
+
+    print(x)
+    return x
+
+
+
+
+r = int(input())
+macierz = []
+wspol = [0]*r
+
+#wypelnianie macierzy
+for i in range(0,r):
+    row = []
+    for j in range(r,-1,-1):
+        if(j==0):
+            print((1/(r+1)))
+            row.append(Suma(i,r)-((1/(r+1))*pow(i+1,r+1)))
+        else:
+            row.append(pow(i+1,j))
+    macierz.append(row)
+
+print(macierz)
+#usuwanie skladnikow w macierzy
+for i in range(0,r-1):
+    for j in range(i+1,r):
+        d=(macierz[j][i]*-1)/macierz[i][i]
+        for k in range(i+1,r+1):
+            macierz[j][k] += d*macierz[i][k]
+
+for i in range(r-1,-1,-1):
+    hlp=macierz[i][r]
+    for j in range(r-1,i,-1):
+        hlp-= macierz[i][j]*wspol[j]
+
+    wspol[i]=hlp/macierz[i][i]
+
+print(wspol)
