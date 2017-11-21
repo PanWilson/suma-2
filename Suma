@@ -4,12 +4,11 @@ def Suma(n,r):
     for i in range(n+1):
         x+=pow(i,r)
 
-    print(x)
     return x
 
 
 
-
+S=0
 r = int(input())
 macierz = []
 wspol = [0]*r
@@ -19,13 +18,12 @@ for i in range(0,r):
     row = []
     for j in range(r,-1,-1):
         if(j==0):
-            print((1/(r+1)))
             row.append(Suma(i,r)-((1/(r+1))*pow(i+1,r+1)))
         else:
             row.append(pow(i+1,j))
     macierz.append(row)
 
-print(macierz)
+#print(macierz)
 #usuwanie skladnikow w macierzy
 for i in range(0,r-1):
     for j in range(i+1,r):
@@ -33,6 +31,7 @@ for i in range(0,r-1):
         for k in range(i+1,r+1):
             macierz[j][k] += d*macierz[i][k]
 
+#wyliczanie wspolczymmikow z macierzy trojkatnej
 for i in range(r-1,-1,-1):
     hlp=macierz[i][r]
     for j in range(r-1,i,-1):
@@ -40,4 +39,10 @@ for i in range(r-1,-1,-1):
 
     wspol[i]=hlp/macierz[i][i]
 
-print(wspol)
+S+=1/(r+1)*pow(4,r+1)
+print("{}*n^{} ".format(round(1/(r+1),4),r+1), end='')
+for i,ws in enumerate(wspol):
+    S+=ws*pow(4,r-i)
+    print("{}*n^{} ".format(round(ws,4),r-i), end='')
+
+print("\n{} = {}".format(Suma(3,r),S))
